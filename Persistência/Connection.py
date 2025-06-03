@@ -12,7 +12,7 @@ class Connection:
         if cls.__instance is None: 
             cls.__instance = super().__new__(cls)
             cls.__connection = postgres.connect( 
-                host = 'localhost', dbname = 'biblioteca' , user = 'postgres', password  = '100403'
+                host = 'localhost', dbname = 'biblioteca' , user = 'postgres', password  = 'postgres'
             )
             
             return cls.__instance
