@@ -1,8 +1,4 @@
-# BANCO DE DADOS II
-# Camada de Persistência
-# Alunos: Luís e Raphael
-
-import psycopg2 as postgres
+import psycopg as postgres
 
 class Connection: 
     __instance = None 
@@ -12,7 +8,7 @@ class Connection:
         if cls.__instance is None: 
             cls.__instance = super().__new__(cls)
             cls.__connection = postgres.connect( 
-                host = 'localhost', dbname = 'biblioteca' , user = 'postgres', password  = '100403'
+                host = 'localhost', dbname = 'biblioteca' , user = 'postgres', password  = 'admin'
             )
             
             return cls.__instance
