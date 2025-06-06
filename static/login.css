@@ -1,0 +1,69 @@
+#formulario{ 
+    display: flex;
+    padding: 5rem;
+    height: fit-content;
+    flex-direction: column;
+    background-color: white;
+    border: 0.5rem solid #1b4332ff;
+    border-radius: 2rem;
+}
+
+
+#formulario h1 { 
+    font-size: 3rem;
+    color: #1b4332ff;
+    text-align: center;
+    padding: 1rem;
+}
+
+#formulario form{
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+}
+
+
+#formulario label{
+    font-size: 2rem;
+    color: #1b4332ff;
+}
+
+#formulario input[type="text"], input[type="password"], input[type = "number"]{ 
+    border: 0;
+    width: 50rem;
+    border-bottom: 0.2rem solid #344e41ff;
+    background-color: transparent;
+    outline: none; 
+    font-size: 1.5rem;
+    padding: 1rem;  
+    margin-bottom: 2rem;
+}
+
+
+#submit-button{ 
+    position: relative;
+    width: 40%;
+    left: 30%;
+
+    padding: 1.5rem;
+    margin-top: 2rem;
+
+    color:#dad7cdff;
+    font-size: 2rem;
+
+    border-radius: 1rem;
+    background-color: #1b4332ff;
+}
+
+#content .criar-registro{ 
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+#content .criar-registro span,a{ 
+    font-size: 1.5rem;
+    text-decoration: none;
+}
+
+

@@ -1,0 +1,40 @@
+
+<!DOCTYPE  html>
+<html lang="pt-br">
+
+    <head>
+        {%block head%}
+            <meta charset="UTF-8">
+            <me
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href= "/static/base.css" />
+            <title>{%block title %} Sistema Bibliotecário {%endblock%} </title>
+        {% endblock %}
+    </head>
+
+    <body>
+
+        {% block nav %}
+        <!-- <nav>
+            <ul>
+                <li><a href="#">Login</a></li>
+                <li><a href="#">Registrar</a></li>
+                <li><a href="#">Livros</a></li>
+                <li><a href="#">Colecoes</a></li>
+            </ul> 
+        </nav> -->
+
+        {% endblock %}
+        <div id = "content">
+            {% block content%}
+            
+            {% endblock %}
+        </div>
+
+        <footer>
+            <p>Trabalho Banco de Dados 2 -  Luis Eduardo Bet e Raphael Bussons</p>
+        </footer>
+
+
+    </body>
+</html>
