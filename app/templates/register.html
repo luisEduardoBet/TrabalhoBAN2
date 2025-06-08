@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{%block title %} Login {%endblock%}
+{%block head%} 
+  {{super()}}
+  <link rel="stylesheet" href="/static/register.css"/>
+  <link rel="stylesheet" href= "/static/login.css" />
+  
+{%endblock%}
+
+
+{% block content%}
+<div id = "formulario">
+
+  <h1>Cadastro</h1>
+
+  <form method="post">
+
+    <label for="nome">Nome</label><br>
+    <input type="text"  placeholder="Nome" id="nome" name="nome" required><br>
+
+    <label for="cpf">CPF</label><br>
+    <input type="text"  placeholder="CPF" id="cpf" name="cpf" required><br>
+
+
+    <label for="endereco">Endereço</label><br>
+    <input type="text" placeholder="Cidade/UF, Rua, Bairro, Numero" id="endereco" name="endereco" required>
+
+    <label for="telefone">Telefone</label><br>
+    <input type="number" inputmode="numeric" placeholder="Telefone" id="telefone" name="telefone" >
+
+    <label for="tipo">Tipo de Usuário</label><br>
+
+    <div class = "registro_tipo">
+        <input type="radio" id="bib" name="tipo" value="1"required>
+        <label for="bibliotecario">Bibliotecario</label><br>
+        <!-- <input type="radio" id="assis" name="tipo" value="2" required>
+        <label for="bibliotecario">Assistente</label><br> -->
+        <input type="radio" id="user" name="tipo" value="2" required>
+        <label for="bibliotecario">Usuário Comum</label><br>
+      </div>
+
+    
+    <label for="senha">Senha</label><br>
+    <input type="password" placeholder="Senha" id="senha" name="senha" required>
+
+    <input type="submit" id = "submit-button" value = "Registrar-se"> 
+
+  </form>        
+
+</div>
+
+{% endblock %}

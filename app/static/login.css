@@ -40,6 +40,45 @@
 }
 
 
+#tipo_usuario{
+    margin-bottom: 2rem;
+    height: 4rem;
+    position: relative;
+    border: none;
+    overflow: hidden;
+    width: 100%;
+    
+  }
+  #tipo_usuario::-moz-focus-inner {
+    border: 0;
+  }
+  #tipo_usuario:focus {
+    outline: none;
+  }
+  #tipo_usuario option{
+    position: relative;
+    text-align: center;
+    width: 25%;
+    font-size: 1.5rem;
+    text-align: center;
+    padding: 1rem;
+    margin-right: 10%;
+    height: 100%;
+    display: inline-block; 
+    cursor: pointer;
+    border:#1b4332ff solid 0.1rem;
+    border-radius: 5px;
+    color: #1b4332ff;
+}
+
+#tipo_usuario option:checked{
+    color:white;
+    background-color: #1b4332ff;
+}
+
+
+
+
 #submit-button{ 
     position: relative;
     width: 40%;

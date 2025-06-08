@@ -1,0 +1,149 @@
+#content{
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+}
+
+.navbar{
+
+    background-color: #1b4332ff;
+    width: 5%;
+    position: fixed;
+    left: 0;
+    top:0;
+    height:100vh;
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+}
+
+.navbar a{
+    text-decoration: none;
+    position: absolute;
+    width: 80%;
+    height: fit-content;
+    background-color: #d8f3dcff;
+    text-align: center;
+    padding: 1rem;
+    color: black;
+    border-radius: 1rem;
+    border: solid 0.2rem #2d6a4fff;
+    
+
+}
+
+#button-perfil{
+    top:5%;
+ 
+
+} 
+
+#button-logout{ 
+    bottom: 5%;
+}
+
+
+
+.acervo{ 
+    background-color: white;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    left:5%;
+    top:0;
+    height: 100vh;
+    width: 95%;
+}
+
+.acervo h1{
+    padding: 2rem;
+    font-size: 5rem;
+    color: #2d6a4fff;
+    opacity: 80%;
+}
+
+.acervo form{
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 50%;
+    
+}
+
+.acervo .busca{
+
+    display: flex;
+    flex-direction: row;
+
+}
+
+
+.busca input[type="search"]{
+    
+    width: 90%;
+    border-radius: 1rem;
+    padding: 1rem;
+    outline: none;
+    font-size: 1.5rem;
+}
+
+.busca input[type="submit"]{
+    display: block;
+    width: 10%;
+    border-radius: 10%;
+    background-color: #2d6a4fff;
+    color:white;
+    cursor:pointer; 
+    border: 0;
+    margin-left:1%;
+}
+.filtro{
+    margin-top: 0.25rem ;
+    display: flex;
+    flex-direction: row;
+    height: fit-content;
+    align-items: center;
+}
+
+.filtro span{ 
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    margin-left: 1.5rem;
+    color: #1b4332ff
+}
+
+#tipo_pesquisa{
+    height: 2.5rem;
+    border: none;
+    overflow: hidden;
+    width: 50%;
+    
+  }
+  #tipo_pesquisa::-moz-focus-inner {
+    border: 0;
+  }
+  #tipo_pesquisa:focus {
+    outline: none;
+  }
+  #tipo_pesquisa option{
+    height: fit-content;
+    position: relative;
+    text-align: center;
+    width: 25%;
+    font-size: 1rem;
+    text-align: center;
+    padding: 0.5rem;
+    margin-right: 1rem;
+    display: inline-block; 
+    cursor: pointer;
+    border:#1b4332ff solid 0.1rem;
+    border-radius: 5px;
+    color: #1b4332ff;
+}
+
+#tipo_pesquisa option:checked{
+    color:white;
+    background-color: #1b4332ff;
+}

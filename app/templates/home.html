@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{%block title %} Login {%endblock%}
+{%block head%} 
+  {{super()}}
+  <link rel="stylesheet" href= "/static/home.css" />
+{%endblock%}
+
+
+{% block content%}
+
+  <div class= "navbar">
+
+    <a id= "button-perfil" href="#">Perfil</a>
+    <a id = "button-logout" href="{{url_for('logout')}}">LogOut</a> 
+
+  </div>
+
+  <div class = "acervo">
+
+    <h1>Bem vindo, {{current_user.nome}}</h1>
+    
+    <form action="post" class="barra-pesquisa">
+
+      <div class="busca"> 
+        <input type="search" placeholder="Pesquisa..." id="pesquisa" name="pesquisa"><br>
+        <input type="submit" id = "submit-button" value = "Buscar"> 
+      </div>
+
+      <div class="filtro">
+        <span>Filtros:</span>
+        <select name="tipo_pesquisa" id="tipo_pesquisa" multiple>
+          <option value="1">Livro</option>
+          <option value="2">Autor</option>
+          <option value="3">Coleção</option>
+        </select>
+
+      </div>
+    </form>  
+
+
+  </div>
+
+
+
+{% endblock %}

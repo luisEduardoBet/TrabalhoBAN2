@@ -1,0 +1,25 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.registro_tipo{ 
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.registro_tipo input{ 
+  margin-right: 0.5rem;
+}
+
+.registro_tipo label{ 
+  margin-right: 2rem;
+}
