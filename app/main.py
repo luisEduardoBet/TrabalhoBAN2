@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, flash, redirect, url_for, session
+from flask import Flask, render_template, request, flash, redirect, url_for, session, g
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from sqlalchemy import text
 from models.database import db
-from models.models import Bibliotecario, Usuario
+from models.models import Bibliotecario
 
 
 app = Flask(__name__)
@@ -17,18 +18,54 @@ db.init_app(app)
 
 @lg_manager.user_loader
 def user_loader(id): 
-  table = session.get("user_id")
-
-
   user = db.session.query(Bibliotecario).filter_by(id_bibliotecario=id).first()
   return user
   
 
 
-@app.route("/home")
+@app.route("/home", methods = ["GET", "POST"])
 @login_required
-def home(): 
+def home():
+
+  if request.method == "POST": 
+
+    pesquisa = request.form["pesquisa"]
+    print(pesquisa)
+    if (pesquisa != None): 
+    
+      resultado = db.session.execute(
+        text('SELECT isbn, esta_emprestado, id_exemplar FROM livro join exemplar using(id_livro)')
+      ).fetchall()
+      
+      return render_template("home.html", resultado = resultado)
+    else: 
+      emprestimos = request.form["checkbox"]
+      print(emprestimos)
+
   return render_template("home.html")
+
+
+
+@app.route("/home", methods = ["GET", "POST"])
+@login_required
+def home():
+
+  if request.method == "POST": 
+
+    pesquisa = request.form["pesquisa"]
+    print(pesquisa)
+    if (pesquisa != None): 
+    
+      resultado = db.session.execute(
+        text('SELECT isbn, esta_emprestado, id_exemplar FROM livro join exemplar using(id_livro)')
+      ).fetchall()
+      
+      return render_template("home.html", resultado = resultado)
+    else: 
+      emprestimos = request.form["checkbox"]
+      print(emprestimos)
+
+
 
 
 @app.route("/", methods = ["GET", "POST"])
@@ -43,9 +80,13 @@ def login():
     senha = request.form["senha"]
 
     user =  db.session.query(Bibliotecario).filter_by(cpf = cpf, senha = senha).first()
+  
+    if user: 
+      login_user(user)
+      return redirect(url_for("home"))
 
-    login_user(user)
-    return redirect(url_for("home"))
+    else: 
+      return redirect(url_for("login"))
 
 
 @app.route("/logout")

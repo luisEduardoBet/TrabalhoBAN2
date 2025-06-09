@@ -1,3 +1,7 @@
+
+body{
+    background-color: white;
+}
 #content{
     display: flex;
     flex-direction: row;
@@ -52,7 +56,6 @@
     align-items: center;
     left:5%;
     top:0;
-    height: 100vh;
     width: 95%;
 }
 
@@ -128,12 +131,8 @@
     outline: none;
   }
   #tipo_pesquisa option{
-    height: fit-content;
-    position: relative;
-    text-align: center;
-    width: 25%;
-    font-size: 1rem;
-    text-align: center;
+    height: fit-content;    margin-bottom: 2rem;
+
     padding: 0.5rem;
     margin-right: 1rem;
     display: inline-block; 
@@ -146,4 +145,44 @@
 #tipo_pesquisa option:checked{
     color:white;
     background-color: #1b4332ff;
+}
+
+.livros{
+    width: 50%;
+}
+
+#form-records{
+    width: 100%;
+}
+.livros h1{
+    font-size: 2rem;
+    margin-top: 1rem;
+    padding: 0;
+    margin-bottom: 0.2rem;
+}
+
+.livros hr{ 
+    background-color:#1b4332ff; ;
+    margin-bottom: 1rem;
+}
+
+.records{ 
+    position: relative;
+    display: block;
+    background-color:#d8f3dcff;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    cursor: pointer;
+}
+
+.records label{
+    font-size: 2rem;
+}
+
+.records input{
+    position: absolute;
+    left: 90%;
+    top: 40%;
+    transform: scale(2);
+    accent-color:#1b4332ff;
 }

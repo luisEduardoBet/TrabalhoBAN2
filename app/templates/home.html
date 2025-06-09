@@ -19,7 +19,7 @@
 
     <h1>Bem vindo, {{current_user.nome}}</h1>
     
-    <form action="post" class="barra-pesquisa">
+    <form method="post" class="barra-pesquisa">
 
       <div class="busca"> 
         <input type="search" placeholder="Pesquisa..." id="pesquisa" name="pesquisa"><br>
@@ -35,11 +35,34 @@
         </select>
 
       </div>
-    </form>  
 
+    </form>
+
+
+    <div class="livros"> 
+
+   
+    {% if resultado %}
+      <h1> Resultados Encontrados</h1>
+      <hr>
+        <form method="post" id="form-records">
+        {% for r in resultado %}
+          <div class="records">
+              <label class="record-label">ISBN: {{r.isbn}}, Exemplar: {{r.id_exemplar}} 
+              <input name="checkbox" type ="checkbox" value="{{r.id_livro}}">
+              </label>
+          </div>
+
+        {% endfor %}
+
+        <input type="submit" id = "submit-button2" value = "Reservar"> 
+        </form>
+    {% endif %}
+      
+      
+
+    </div>
 
   </div>
-
-
 
 {% endblock %}
