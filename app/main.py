@@ -41,17 +41,16 @@ def home():
   if request.method == "POST": 
 
     pesquisa = request.form["pesquisa"]
-    print(pesquisa)
-    if (pesquisa != None): 
+    tipo_pesquisa = request.form["tipo_pesquisa"]
+
+    
+    if (pesquisa == ''): 
     
       resultado = db.session.execute(
         text('SELECT isbn, esta_emprestado, id_exemplar FROM livro join exemplar using(id_livro) WHERE eh_reserva = false')
       ).fetchall()
       
       return render_template("home.html", resultado = resultado)
-    else: 
-      emprestimos = request.form["checkbox"]
-      print(emprestimos)
 
   return render_template("home.html")
 
@@ -70,9 +69,26 @@ def emprestimo():
        db.session.execute(
          text("INSERT INTO emprestimo (id_exemplar, id_usuario ,data_inicio) VALUES ({},{},'{}')".format(exemplar, id, data))
       )
+      
+    db.session.commit()
+
+      
+
 
   return redirect(url_for("home"))
     
+
+
+@app.route("/perfil", methods = ["GET", "POST"])
+@login_required
+def profile(): 
+
+  if request.method == "GET": 
+    query = text(r'SELECT * from emprestimo WHERE id_usuario = :val')
+    resultado = db.session.execute(query, {"val": current_user.get_id()}).fetchall()
+
+    return render_template("perfil.html", resultado = resultado)
+
 
 
 

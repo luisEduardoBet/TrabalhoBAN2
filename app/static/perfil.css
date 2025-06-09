@@ -1,0 +1,46 @@
+body{
+    background-color: white;
+}
+#content{
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+}
+
+.navbar{
+
+    background-color: #1b4332ff;
+    width: 5%;
+    position: fixed;
+    left: 0;
+    top:0;
+    height:100vh;
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+}
+
+.navbar a{
+    text-decoration: none;
+    position: absolute;
+    width: 80%;
+    height: fit-content;
+    background-color: #d8f3dcff;
+    text-align: center;
+    padding: 1rem;
+    color: black;
+    border-radius: 1rem;
+    border: solid 0.2rem #2d6a4fff;
+    
+
+}
+
+.button-perfil{
+    top:5%;
+ 
+} 
+
+.button-logout{ 
+    bottom: 5%;
+}
+

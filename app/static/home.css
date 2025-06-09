@@ -36,13 +36,13 @@ body{
 
 }
 
-#button-perfil{
+.button-perfil{
     top:5%;
  
 
 } 
 
-#button-logout{ 
+.button-logout{ 
     bottom: 5%;
 }
 

@@ -2,7 +2,7 @@
 {%block title %} Login {%endblock%}
 {%block head%} 
   {{super()}}
-  <link rel="stylesheet" href= "/static/home.css" />
+  <link rel="stylesheet" href= "/app/static/home.css" />
 {%endblock%}
 
 
@@ -10,8 +10,8 @@
 
   <div class= "navbar">
 
-    <a id= "button-perfil" href="#">Perfil</a>
-    <a id = "button-logout" href="{{url_for('logout')}}">LogOut</a> 
+    <a class= "button-perfil" href="{{ url_for('profile') }}">Perfil</a>
+    <a class= "button-logout" href="{{url_for('logout')}}">LogOut</a> 
 
   </div>
 
@@ -28,7 +28,7 @@
 
       <div class="filtro">
         <span>Filtros:</span>
-        <select name="tipo_pesquisa" id="tipo_pesquisa" multiple>
+        <select name="tipo_pesquisa" id="tipo_pesquisa" multiple required>
           <option value="1">Livro</option>
           <option value="2">Autor</option>
           <option value="3">Coleção</option>
