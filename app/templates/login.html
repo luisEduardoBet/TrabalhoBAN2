@@ -11,16 +11,16 @@
   <h1>LOGIN</h1>
   <form method="post">
 
-    <select name="tipo_usuario" id="tipo_usuario" multiple>
+    <select name="tipo_usuario" id="tipo_usuario" multiple required>
       <option value="1">Bibliotecario</option>
       <option value="2">Assistente</option>
       <option value="3">Usuário Comum</option>
     </select>
 
     <label for="cpf">CPF</label><br>
-    <input type="text"  placeholder="CPF" id="cpf" name="cpf"><br>
+    <input type="text"  placeholder="CPF" id="cpf" name="cpf" required><br>
     <label for="senha">Senha</label><br>
-    <input type="password" placeholder="Senha" id="senha" name="senha">
+    <input type="password" placeholder="Senha" id="senha" name="senha" required>
     <input type="submit" id = "submit-button" value = "Entrar"> 
   </form>        
 

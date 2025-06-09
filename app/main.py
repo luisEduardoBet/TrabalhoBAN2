@@ -2,7 +2,8 @@ from flask import Flask, render_template, request, flash, redirect, url_for, ses
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 from sqlalchemy import text
 from models.database import db
-from models.models import Bibliotecario
+from models.models import Bibliotecario, Usuario
+import datetime
 
 
 app = Flask(__name__)
@@ -18,8 +19,18 @@ db.init_app(app)
 
 @lg_manager.user_loader
 def user_loader(id): 
-  user = db.session.query(Bibliotecario).filter_by(id_bibliotecario=id).first()
-  return user
+  tabela = session.get('table')
+
+  if tabela == 1: 
+    bib = db.session.query(Bibliotecario).filter_by(id_bibliotecario=id).first()
+    return bib
+  
+  elif tabela == 2: 
+    user = db.session.query(Usuario).filter_by(id_usuario=id).first()
+    return user
+  else: 
+    return None
+
   
 
 
@@ -34,7 +45,7 @@ def home():
     if (pesquisa != None): 
     
       resultado = db.session.execute(
-        text('SELECT isbn, esta_emprestado, id_exemplar FROM livro join exemplar using(id_livro)')
+        text('SELECT isbn, esta_emprestado, id_exemplar FROM livro join exemplar using(id_livro) WHERE eh_reserva = false')
       ).fetchall()
       
       return render_template("home.html", resultado = resultado)
@@ -44,49 +55,56 @@ def home():
 
   return render_template("home.html")
 
-
-
-@app.route("/home", methods = ["GET", "POST"])
+  
+@app.route("/efetivar_emprestimo", methods=["GET", "POST"])
 @login_required
-def home():
+def emprestimo():
 
   if request.method == "POST": 
 
-    pesquisa = request.form["pesquisa"]
-    print(pesquisa)
-    if (pesquisa != None): 
-    
-      resultado = db.session.execute(
-        text('SELECT isbn, esta_emprestado, id_exemplar FROM livro join exemplar using(id_livro)')
-      ).fetchall()
-      
-      return render_template("home.html", resultado = resultado)
-    else: 
-      emprestimos = request.form["checkbox"]
-      print(emprestimos)
+    exemplares = request.form.getlist('checkbox')
+    data = str(datetime.date.today())
+    id = current_user.get_id()
+    for exemplar in exemplares: 
 
+       db.session.execute(
+         text("INSERT INTO emprestimo (id_exemplar, id_usuario ,data_inicio) VALUES ({},{},'{}')".format(exemplar, id, data))
+      )
+
+  return redirect(url_for("home"))
+    
 
 
 
 @app.route("/", methods = ["GET", "POST"])
 def login():
 
-  if request.method == "GET": 
-
+  if request.method == "GET":
       return render_template("login.html")
 
   else: 
     cpf = request.form["cpf"]
     senha = request.form["senha"]
+    tipo_usuario = request.form["tipo_usuario"]
 
-    user =  db.session.query(Bibliotecario).filter_by(cpf = cpf, senha = senha).first()
-  
+    print(tipo_usuario)
+
+    user = None
+    if tipo_usuario == "1":
+      user =  db.session.query(Bibliotecario).filter_by(cpf = cpf, senha = senha).first()
+      session['table'] = 1
+
+    elif tipo_usuario == "3": 
+      user =  db.session.query(Usuario).filter_by(cpf = cpf, senha = senha).first()
+      session['table'] = 2
+      
+
     if user: 
-      login_user(user)
-      return redirect(url_for("home"))
-
-    else: 
-      return redirect(url_for("login"))
+        login_user(user)
+        return redirect(url_for("home"))
+    
+    return redirect(url_for("login"))
+    
 
 
 @app.route("/logout")
@@ -106,17 +124,27 @@ def register():
     telefone = request.form.get ("telefone")
     tipo_usuario = request.form.get("tipo")
     password = request.form.get("senha")
-
     if tipo_usuario == "1": 
 
-        bib = Bibliotecario(cpf = cpf, nome = nome, senha = password, endereco = endereco, telefone = telefone)
-        db.session.add(bib)
-        db.session.commit()
+      bib = Bibliotecario(cpf = cpf, nome = nome, senha = password, endereco = endereco, telefone = telefone)
+      db.session.add(bib)
+      db.session.commit()
 
-        session['table'] = 1
-        login_user(bib)
+      session['table'] = 1
+      login_user(bib)
 
-        return redirect(url_for("home"))
+      return redirect(url_for("home"))
+    
+    elif tipo_usuario == "2": 
+      user = Usuario(cpf = cpf, nome = nome, senha = password, endereco = endereco, telefone = telefone) 
+      db.session.add(user)
+      db.session.commit()
+
+      session['table'] = 2
+      login_user(user)
+
+      return redirect(url_for("home"))
+
       
   return render_template("register.html")
 

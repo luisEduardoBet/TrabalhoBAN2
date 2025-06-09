@@ -45,11 +45,11 @@
     {% if resultado %}
       <h1> Resultados Encontrados</h1>
       <hr>
-        <form method="post" id="form-records">
+        <form action = "{{url_for('emprestimo')}}"method="post" id="form-records">
         {% for r in resultado %}
           <div class="records">
               <label class="record-label">ISBN: {{r.isbn}}, Exemplar: {{r.id_exemplar}} 
-              <input name="checkbox" type ="checkbox" value="{{r.id_livro}}">
+              <input name="checkbox" type ="checkbox" value={{r.id_exemplar}}>
               </label>
           </div>
 
