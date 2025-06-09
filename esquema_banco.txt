@@ -1,0 +1,111 @@
+-- BANCO DE DADOS 2
+-- Trabalho Final - Parte 2: Mapeamento Conceitual -> Lógico + DDL-SQL
+-- Professor: Fabiano Baldo
+-- Alunos: Luís Bet e Raphael Bussons
+
+CREATE TABLE assistente (
+	id_assistente SERIAL PRIMARY KEY,
+	cpf CHAR(11) UNIQUE NOT NULL,
+	nome VARCHAR(100) NOT NULL,
+	endereco VARCHAR(250) NOT NULL,
+	telefone CHAR(11), 
+);
+
+CREATE TABLE bibliotecario (
+	id_bibliotecario SERIAL PRIMARY KEY,
+	cpf CHAR(11) UNIQUE NOT NULL,
+	nome VARCHAR(100) NOT NULL,
+	endereco VARCHAR(250) NOT NULL,
+	telefone CHAR(11)
+);
+
+CREATE TABLE supervisor (
+	id_assistente INTEGER,
+	id_bibliotecario INTEGER,
+	PRIMARY KEY(id_assistente, id_bibliotecario),
+	FOREIGN KEY(id_assistente) REFERENCES assistente ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY(id_bibliotecario) REFERENCES bibliotecario ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+----------------------------------
+
+CREATE TABLE colecao (
+	id_colecao SERIAL PRIMARY KEY,
+	nome VARCHAR(30) NOT NULL
+);
+
+CREATE TABLE editora (
+	id_editora SERIAL PRIMARY KEY,
+	nome VARCHAR(30) NOT NULL,
+	endereco VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE livro (
+	id_livro SERIAL PRIMARY KEY,
+	isbn CHAR(13) UNIQUE NOT NULL,
+	id_colecao INTEGER REFERENCES colecao ON UPDATE CASCADE ON DELETE RESTRICT NOT NULL,
+	id_editora INTEGER REFERENCES editora ON UPDATE CASCADE ON DELETE RESTRICT NOT NULL
+);
+
+CREATE TABLE autor (
+	id_autor SERIAL PRIMARY KEY,
+	nome VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE escrito (
+	id_autor INTEGER,
+	id_livro INTEGER,
+	PRIMARY KEY(id_autor, id_livro),
+	FOREIGN KEY(id_autor) REFERENCES autor ON UPDATE CASCADE ON DELETE RESTRICT,
+	FOREIGN KEY(id_livro) REFERENCES livro ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
+-----------------------------
+
+CREATE TABLE categoria (
+	id_categoria SERIAL PRIMARY KEY,
+	nome VARCHAR(50) NOT NULL,
+	tempo_max_emprestimo INTEGER NOT NULL,
+	num_max_emprestimos INTEGER NOT NULL
+);
+
+CREATE TABLE exemplar (
+	id_exemplar SERIAL PRIMARY KEY,
+	eh_reserva BOOLEAN NOT NULL,
+	esta_emprestado BOOLEAN NOT NULL DEFAULT FALSE,
+	id_livro INTEGER REFERENCES livro ON UPDATE CASCADE ON DELETE CASCADE NOT NULL
+);
+
+CREATE TABLE usuario (
+	id_usuario SERIAL PRIMARY KEY,
+        cpf CHAR(11) UNIQUE NOT NULL,
+	nome VARCHAR(100) NOT NULL,
+	endereco VARCHAR(250) NOT NULL,
+	telefone CHAR(11),
+	num_emprestimos INTEGER NOT NULL DEFAULT 0,
+	id_categoria INTEGER REFERENCES categoria ON UPDATE CASCADE ON DELETE RESTRICT NOT NULL
+);
+
+CREATE TABLE multa (
+	id_multa SERIAL PRIMARY KEY,
+	valor REAL NOT NULL,
+	id_usuario INTEGER REFERENCES usuario ON UPDATE CASCADE ON DELETE CASCADE NOT NULL
+);
+
+CREATE TABLE emprestimo (
+	id_emprestimo SERIAL PRIMARY KEY,
+	id_exemplar INTEGER REFERENCES exemplar ON UPDATE CASCADE ON DELETE RESTRICT NOT NULL,
+	id_usuario INTEGER REFERENCES usuario ON UPDATE CASCADE ON DELETE RESTRICT NOT NULL,
+	data_inicio DATE NOT NULL,
+	data_fim DATE NOT NULL,
+	num_renovacoes INTEGER NOT NULL DEFAULT 0,
+	esta_atrasado BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+CREATE TABLE reserva (
+	id_reserva SERIAL PRIMARY KEY,
+	id_usuario INTEGER REFERENCES usuario ON UPDATE CASCADE ON DELETE CASCADE NOT NULL,
+	id_exemplar INTEGER REFERENCES exemplar ON UPDATE CASCADE ON DELETE CASCADE NOT NULL,
+	data_reserva DATE NOT NULL,
+	hora TIME NOT NULL
+);
