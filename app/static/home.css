@@ -36,8 +36,12 @@ body{
 
 }
 
-.button-perfil{
+.button-home{
     top:5%;
+}
+
+.button-perfil{
+    top:20%;
  
 
 } 
@@ -101,6 +105,7 @@ body{
     cursor:pointer; 
     border: 0;
     margin-left:1%;
+    font-size: 1.3rem;
 }
 .filtro{
     margin-top: 0.25rem ;
@@ -185,4 +190,14 @@ body{
     top: 40%;
     transform: scale(2);
     accent-color:#1b4332ff;
+}
+
+#submit-button2{ 
+    padding: 1rem;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    background-color: #2d6a4fff;
+    color: white;
+    border: 0.5rem solid #2d6a4fff; 
+    border-radius: 1.5rem;
 }

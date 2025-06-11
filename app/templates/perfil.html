@@ -2,7 +2,8 @@
 {%block title %} Login {%endblock%}
 {%block head%} 
   {{super()}}
-  <link rel="stylesheet" href= "/static/home.css" />
+  <link rel="stylesheet" href="/static/home.css"/>
+  <link rel="stylesheet" href= "/static/perfil.css" />
 {%endblock%}
 
 
@@ -10,26 +11,38 @@
 
 <div class= "navbar">
 
+  <a class= "button-home" href="{{url_for('home')}}">Home</a>
   <a class= "button-perfil" href="{{ url_for('profile') }}">Perfil</a>
   <a class= "button-logout" href="{{url_for('logout')}}">LogOut</a> 
 
 </div>
 
+<div class = "dados-perfil">
+  <img src="/static/imagens/perfil.webp">
+  <div class="dados">
+    <p>Nome: <span>{{current_user.nome}}</span></p>
+    <p>CPF: <span>{{current_user.cpf}}</span></p>
+    <p>Endereco: <span>{{current_user.endereco}}</span></p>
+    <p>Telefone: <span>{{current_user.cpf}}</span></p>
+    <p></p>
+  </div>
+</div>
 
 
+<div class ="reservas">
+  <h1> Minhas reservas</h1>
   {% if resultado %}
-      <h1> Resultados Encontrados</h1>
-      <hr>
         <form method="post" id="form-records">
         {% for r in resultado %}
           <div class="records">
-              <label class="record-label">ISBN: {{r.isbn}}, Exemplar: {{r.id_exemplar}} 
+              <label class="record-label">Exemplar: {{r.id_exemplar}} | Devolução: {{r.data_fim}} 
               </label>
           </div>
 
         {% endfor %}
         </form>
     {% endif %}
-
+</div>
+  
 
 {% endblock %}

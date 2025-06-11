@@ -41,7 +41,6 @@ def home():
   if request.method == "POST": 
 
     pesquisa = request.form["pesquisa"]
-    tipo_pesquisa = request.form["tipo_pesquisa"]
 
     
     if (pesquisa == ''): 
@@ -152,7 +151,11 @@ def register():
       return redirect(url_for("home"))
     
     elif tipo_usuario == "2": 
-      user = Usuario(cpf = cpf, nome = nome, senha = password, endereco = endereco, telefone = telefone) 
+      user = Usuario(cpf = cpf, 
+                     nome = nome, 
+                     senha = password, 
+                     endereco = endereco,
+                     telefone = telefone) 
       db.session.add(user)
       db.session.commit()
 

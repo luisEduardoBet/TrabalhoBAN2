@@ -78,7 +78,7 @@ CREATE TABLE exemplar (
 
 CREATE TABLE usuario (
 	id_usuario SERIAL PRIMARY KEY,
-        cpf CHAR(11) UNIQUE NOT NULL,
+    cpf CHAR(11) UNIQUE NOT NULL,
 	nome VARCHAR(100) NOT NULL,
 	endereco VARCHAR(250) NOT NULL,
 	telefone CHAR(11),
