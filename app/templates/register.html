@@ -8,7 +8,21 @@
 {%endblock%}
 
 
+
 {% block content%}
+
+{% if erro %}
+
+<div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+  Erro: {{erro}}.
+</div>
+
+{% endif%}
+
+
+
+
 <div id = "formulario">
 
   <h1>Cadastro</h1>
@@ -33,9 +47,9 @@
     <div class = "registro_tipo">
         <input type="radio" id="bib" name="tipo" value="1"required>
         <label for="bibliotecario">Bibliotecario</label><br>
-        <!-- <input type="radio" id="assis" name="tipo" value="2" required>
-        <label for="bibliotecario">Assistente</label><br> -->
-        <input type="radio" id="user" name="tipo" value="2" required>
+        <input type="radio" id="assis" name="tipo" value="2" required>
+        <label for="bibliotecario">Assistente</label><br> 
+        <input type="radio" id="user" name="tipo" value="3" required>
         <label for="bibliotecario">Usuário Comum</label><br>
       </div>
 

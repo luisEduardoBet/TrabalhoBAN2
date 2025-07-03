@@ -3,6 +3,10 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+body{
+  overflow: hidden;
+}
+
 
 /* Firefox */
 input[type=number] {
@@ -22,4 +26,29 @@ input[type=number] {
 
 .registro_tipo label{ 
   margin-right: 2rem;
+}
+
+.alert {
+  z-index: 1; 
+  position: absolute;
+  padding: 1rem;
+  background-color: #af261c;
+  color: white;
+  border-radius: 1rem;
+  font-size: 2rem;
+  top: 5%;
+}
+
+.closebtn {
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 3rem;
+  line-height: 2rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
 }

@@ -18,7 +18,7 @@
 
   <div class = "acervo">
 
-    <h1>Bem vindo, {{current_user.nome}}</h1>
+    <h1>Bem vindo, {{current_user.user_data['nome']}}</h1>
     
     <form method="post" class="barra-pesquisa">
 
@@ -49,7 +49,7 @@
         <form action = "{{url_for('emprestimo')}}"method="post" id="form-records">
         {% for r in resultado %}
           <div class="records">
-              <label class="record-label">ISBN: {{r.isbn}} | Exemplar: {{r.id_exemplar}} | Emprestado: {{r.esta_emprestado}} 
+              <label class="record-label">Nome: {{r['nome']}} | ISBN: {{r["ISBN"]}} | Exemplar: {{r["_id"]}}
               <input name="checkbox" type ="checkbox" value={{r.id_exemplar}}>
               </label>
           </div>

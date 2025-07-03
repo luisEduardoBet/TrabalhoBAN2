@@ -1,0 +1,334 @@
+// Coleção: BIBLIOTECARIO
+[
+    {
+        "_id": 1,
+        "CPF": "98765432101",
+        "senha": "123", 
+        "nome": "Julio",
+        "endereco": "Joinville - Rua Blá Blá",
+        "telefone": "11987654321"
+    }
+]
+
+
+// Assistente
+
+[
+    {
+        "_id": 1,
+        "CPF": "12345678901",
+        "senha": "123",
+        "nome": "Augusto",
+        "endereco": "Joinville - Rua Blá Blá",
+        "telefone": "00998765432",
+        "supervisor": [1]
+    }
+]
+
+// Coleção: COLEÇÃO
+[
+    {
+        "_id": 1,
+        "nome": "Coleção 1"
+    },
+    {
+        "_id": 2,
+        "nome": "Coleção 2"
+    },
+    {
+        "_id": 3,
+        "nome": "Coleção 3"
+    }
+]
+
+// Coleção: EDITORA
+[
+    {
+        "_id": 1,
+        "nome": "Pearson",
+        "endereco": "Boston - Celtics, Casa 22"
+    },
+    {
+        "_id": 2,
+        "nome": "Oreally",
+        "endereco": "Nova Iorque - WallStreet, Escritório 5"
+    },
+    {
+        "_id": 3,
+        "nome": "Casa do Código",
+        "endereco": "Joinville - Rua Blumenau, Casa, 155"
+    }
+]
+
+// Coleção: AUTOR
+[
+    {
+        "_id": 1,
+        "nome": "Ziraldo da Silva"
+    },
+    {
+        "_id": 2,
+        "nome": "J.K. Rowling"
+    },
+    {
+        "_id": 3,
+        "nome": "Peterson Souza"
+    }
+]
+
+// Coleção: LIVRO
+[
+    {
+        "_id": 1,
+        "ISBN": "1234567890123",
+        "colecao": 1,
+        "editora": 1,
+        "autor": [1]
+    },
+    {
+        "_id": 2,
+        "ISBN": "0987654321123",
+        "colecao": 1,
+        "editora": 2,
+        "autor": [3]
+    },
+    {
+        "_id": 3,
+        "ISBN": "1213141516171",
+        "colecao": 2,
+        "editora": 3,
+        "autor": [1]
+    }
+]
+
+// Coleção: CATEGORIA
+[
+    {
+        "_id": 1,
+        "nome": "Aluno Graduação",
+        "tempo_max_emprestimo": 15,
+        "num_max_emprestimos": 10
+    },
+    {
+        "_id": 2,
+        "nome": "Aluno Pós-Graduação",
+        "tempo_max_emprestimo": 30,
+        "num_max_emprestimos": 10
+    },
+    {
+        "_id": 3,
+        "nome": "Professor Integral",
+        "tempo_max_emprestimo": 30,
+        "num_max_emprestimos": 10
+    },
+    {
+        "_id": 4,
+        "nome": "Professor Substituto",
+        "tempo_max_emprestimo": 30,
+        "num_max_emprestimos": 10
+    },
+    {
+        "_id": 5,
+        "nome": "Professor Pós-Graduação Integral",
+        "tempo_max_emprestimo": 90,
+        "num_max_emprestimos": 10
+    },
+    {
+        "_id": 6,
+        "nome": "Professor Pós-Graduação Substituto",
+        "tempo_max_emprestimo": 90,
+        "num_max_emprestimos": 10
+    }
+]
+
+// Coleção: EXEMPLAR
+[
+    {
+        "_id": 1,
+        "eh_reserva": true,
+        "esta_emprestado": false,
+        "livro": 1
+    },
+    {
+        "_id": 2,
+        "eh_reserva": false,
+        "esta_emprestado": false,
+        "livro": 1
+    },
+    {
+        "_id": 3,
+        "eh_reserva": false,
+        "esta_emprestado": false,
+        "livro": 1
+    },
+    {
+        "_id": 4,
+        "eh_reserva": true,
+        "esta_emprestado": false,
+        "livro": 2
+    },
+    {
+        "_id": 5,
+        "eh_reserva": true,
+        "esta_emprestado": false,
+        "livro": 2
+    },
+    {
+        "_id": 6,
+        "eh_reserva": false,
+        "esta_emprestado": false,
+        "livro": 2
+    },
+    {
+        "_id": 7,
+        "eh_reserva": false,
+        "esta_emprestado": false,
+        "livro": 2
+    },
+    {
+        "_id": 8,
+        "eh_reserva": false,
+        "esta_emprestado": false,
+        "livro": 2
+    },
+    {
+        "_id": 9,
+        "eh_reserva": false,
+        "esta_emprestado": false,
+        "livro": 2
+    },
+    {
+        "_id": 10,
+        "eh_reserva": false,
+        "esta_emprestado": false,
+        "livro": 3
+    },
+    {
+        "_id": 11,
+        "eh_reserva": false,
+        "esta_emprestado": false,
+        "livro": 3
+    },
+    {
+        "_id": 12,
+        "eh_reserva": false,
+        "esta_emprestado": false,
+        "livro": 3
+    }
+]
+
+// Coleção: USUÁRIO
+[
+    {
+        "_id": 1,
+        "nome": "Bob",
+        "endereco": "Joinville - Rua Blá Blá",
+        "telefone": "12345678901",
+        "CPF": "091982912",
+        "senha": "1234",
+        "num_emprestimos": 0,
+        "categoria": 1,
+        "multas": []
+    },
+    {
+        "_id": 2,
+        "nome": "Alice",
+        "endereco": "Concórdia - Rua Blá Blá",
+        "telefone": "11111222222",
+        "CPF": "091982913",
+        "senha":"1234", 
+        "num_emprestimos": 0,
+        "categoria": 2,
+        "multas": [1]
+    },
+    {
+        "_id": 3,
+        "nome": "Alexa",
+        "endereco": "Chapecó - Rua Blá Blá",
+        "telefone": "33333344444",
+        "CPF": "091982914",
+        "senha":"1234",
+        "num_emprestimos": 0,
+        "categoria": 3,
+        "multas": []
+    },
+    {
+        "_id": 4,
+        "nome": "Michael",
+        "endereco": "Florianópolis - Rua Blá Blá",
+        "telefone": "55555566666",
+        "CPF": "091982919",
+        "senha":"1234",
+        "num_emprestimos": 0,
+        "categoria": 4,
+        "multas": []
+    },
+    {
+        "_id": 5,
+        "nome": "Patrick",
+        "endereco": "Blumenau - Rua Blá Blá",
+        "telefone": "77777788888",
+        "CPF": "091982917",
+        "senha":"1234",
+        "num_emprestimos": 0,
+        "categoria": 3,
+        "multas": []
+    }
+]
+
+// Coleção: MULTA
+[
+    {
+        "_id": 1,
+        "valor": 1.50
+    }
+]
+
+// Coleção: EMPRÉSTIMO
+[
+    {
+        "_id": 1,
+        "exemplar": 3,
+        "usuario": 3,
+        "data_inicio": "2025-10-10",
+        "data_fim": "2025-11-10",
+        "num_renovacoes": 0,
+        "esta_atrasado": false
+    },
+    {
+        "_id": 2,
+        "exemplar": 2,
+        "usuario": 1,
+        "data_inicio": "2025-11-10",
+        "data_fim": "2025-10-25",
+        "num_renovacoes": 0,
+        "esta_atrasado": false
+    },
+    {
+        "_id": 3,
+        "exemplar": 8,
+        "usuario": 4,
+        "data_inicio": "2025-10-5",
+        "data_fim": "2026-01-5",
+        "num_renovacoes": 0,
+        "esta_atrasado": false
+    }
+]
+
+// Coleção: RESERVA
+[
+    {
+        "_id": 1,
+        "usuario": 1,
+        "exemplar": 3,
+        "data": "2025-11-11",
+        "hora": "10:30"
+    },
+    {
+        "_id": 2,
+        "usuario": 2,
+        "exemplar": 8,
+        "data": "2025-11-11",
+        "hora": "12:30"
+    }
+]

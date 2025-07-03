@@ -1,3 +1,7 @@
+body{
+    overflow: hidden;
+  }
+
 #formulario{ 
     display: flex;
     padding: 5rem;
