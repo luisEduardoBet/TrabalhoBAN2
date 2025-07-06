@@ -43,21 +43,21 @@
     <div class="livros"> 
 
    
-    {% if resultado %}
+    {% if resultado%}
       <h1> Resultados Encontrados</h1>
       <hr>
-        <form action = "{{url_for('emprestimo')}}"method="post" id="form-records">
         {% for r in resultado %}
           <div class="records">
-              <label class="record-label">Nome: {{r['nome']}} | ISBN: {{r["ISBN"]}} | Exemplar: {{r["_id"]}}
-              <input name="checkbox" type ="checkbox" value={{r.id_exemplar}}>
-              </label>
+            <!-- -->
+              <label class="record-label"> 
+                {% for k in r %} <span><strong>{{k}}</strong>  : {{r[k]}}</span>{% endfor %}</label>
+
+              <button class= "seemore" name="botao" type ="submit" value="{{r['_id']}}">Ver Mais</button>
+
           </div>
 
         {% endfor %}
 
-        <input type="submit" id = "submit-button2" value = "Reservar"> 
-        </form>
     {% endif %}
       
       

@@ -173,31 +173,33 @@ body{
 
 .records{ 
     position: relative;
-    display: block;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     background-color:#d8f3dcff;
     margin-bottom: 2rem;
     padding: 2rem;
-    cursor: pointer;
 }
 
 .records label{
     font-size: 2rem;
+    width: 70%
 }
 
-.records input{
+.records span, strong{
+    font-size: 2rem;
+    margin-left: 3%;
+}
+
+.seemore{
     position: absolute;
-    left: 90%;
-    top: 40%;
-    transform: scale(2);
-    accent-color:#1b4332ff;
-}
-
-#submit-button2{ 
+    left: 85%;
+    width: 10%;
     padding: 1rem;
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
     background-color: #2d6a4fff;
-    color: white;
-    border: 0.5rem solid #2d6a4fff; 
-    border-radius: 1.5rem;
+    color:white;
+    cursor:pointer; 
+    font-size: 1.5rem;
+    border: 0;
+    border-radius: 0.5rem;
 }

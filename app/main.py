@@ -39,28 +39,96 @@ def user_loader(id):
 @app.route("/home", methods = ["GET", "POST"])
 @login_required
 def home():
-  
+  query = None
   if request.method == "POST": 
-    pipeline = [
 
-      { "$lookup":{ 
-          "from": "livro",
-          "localField": "livro",
-          "foreignField" : "_id",
-          "as": "livro_exemplar"
-        }
-      },
+    pesquisa =  request.form['pesquisa']
+    tipo_pesquisa = request.form['tipo_pesquisa']
 
-      {"$unwind" : "$livro_exemplar"},
 
-      {"$project": {"_id": 1, "nome": "$livro_exemplar.nome", "ISBN": "$livro_exemplar.ISBN"}}
-    ]
+    print(pesquisa, tipo_pesquisa)
 
-    teste = list(mongo.db.exemplar.aggregate(pipeline))
-  
-    return render_template("home.html", resultado = teste)
+   
+        
+    if tipo_pesquisa == "1":
 
-  return render_template("home.html")
+      pipeline = [
+                { "$lookup":{ 
+                    "from": "livro",
+                    "localField": "livro",
+                    "foreignField" : "_id",
+                    "as": "livro_exemplar"
+                  }
+                },
+
+                {"$unwind" : "$livro_exemplar"},
+
+                {"$group": {"_id": "$livro_exemplar.nome", "exemplares" : {"$sum": 1 }}}, 
+
+                {"$project": {"Nome": "$_id", "Numero Exemplares": "$exemplares", "_id":0 }}
+      ] 
+
+      if pesquisa != '': 
+        match_query = {"$match": {"livro_exemplar.nome": pesquisa}}
+        pipeline.insert(2, match_query)      
+
+          
+      query = list(mongo.db.exemplar.aggregate(pipeline))
+
+    
+    elif tipo_pesquisa == "2": 
+      pipeline = [
+
+                { "$lookup":{ 
+                    "from": "autor",
+                    "localField": "autor",
+                    "foreignField" : "_id",
+                    "as": "autor_livro"
+                  }
+                },
+
+                {"$unwind" : "$autor_livro"},
+
+                {"$group": {"_id": "$autor_livro.nome", "livros" : {"$sum": 1 }}}, 
+
+                {"$project": {"Autor": "$_id", "Livros Escritos": "$livros", "_id":0 }}
+      ] 
+
+      if pesquisa != '': 
+        match_query = {"$match": {"autor_livro.nome": pesquisa}}
+        pipeline.insert(2, match_query)      
+
+
+      query  = list(mongo.db.livro.aggregate(pipeline))
+
+    elif tipo_pesquisa == "3": 
+      pipeline = [ 
+                  
+                  { "$lookup":{ 
+                    "from": "colecao",
+                    "localField": "colecao",
+                    "foreignField" : "_id",
+                    "as": "colecao_livro"
+                  }
+                },
+
+                {"$unwind" : "$colecao_livro"},
+
+                {"$group": {"_id": "$colecao_livro.nome", "livros" : {"$sum": 1 }}}, 
+
+                {"$project": {"Coleção": "$_id", "Livros da Colecao": "$livros", "_id":0 }}]
+
+
+      if pesquisa != '': 
+        match_query = {"$match": {"colecao_livro.nome": pesquisa}}
+        pipeline.insert(2, match_query)     
+
+      query  = list(mongo.db.livro.aggregate(pipeline))
+
+    
+    
+  return render_template("home.html", resultado = query)
+
 
 @app.route("/efetivar_emprestimo", methods=["GET", "POST"])
 @login_required
