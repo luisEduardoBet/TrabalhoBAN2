@@ -34,9 +34,6 @@ def user_loader(id):
 
 
 
-
-
-
 @app.route("/home", methods = ["GET", "POST"])
 @login_required
 def home():
@@ -262,7 +259,14 @@ def emprestimo():
 @login_required
 def profile(): 
 
-  return render_template("perfil.html", resultado = None)
+  resultado = list(mongo.db.emprestimo.find({"usuario": current_user.get_id()}))
+  
+  r_formatado = []
+  for r in resultado :
+    r_formatado.append({"Exemplar": r['exemplar'], "Renovações": r['num_renovacoes'], 
+                "Data_Fim": r["data_fim"], "Atrasado": r['esta_atrasado']})
+  
+  return render_template("perfil.html", resultado = r_formatado)
 
 
 

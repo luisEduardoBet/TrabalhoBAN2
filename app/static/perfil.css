@@ -1,4 +1,13 @@
 
+.records {
+    width: 60%;
+}
+
+.records label{
+    width: 90%;
+}
+
+
 .dados-perfil{
     position: absolute;
     left: 5%;

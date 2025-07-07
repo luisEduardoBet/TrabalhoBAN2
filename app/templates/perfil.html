@@ -20,10 +20,11 @@
 <div class = "dados-perfil">
   <img src="/static/imagens/perfil.webp">
   <div class="dados">
-    <p>Nome: <span>{{current_user.nome}}</span></p>
-    <p>CPF: <span>{{current_user.cpf}}</span></p>
-    <p>Endereco: <span>{{current_user.endereco}}</span></p>
-    <p>Telefone: <span>{{current_user.cpf}}</span></p>
+    <p>Nome: <span>{{current_user.user_data['nome']}}</span></p>
+    <p>CPF: <span>{{current_user.user_data['CPF']}}</span></p>
+    <p>Endereco: <span>{{current_user.user_data['endereco']}}</span></p>
+    <p>Telefone: <span>{{current_user.user_data['telefone']}}</span></p>
+    <p>Multas: <span>{{current_user.user_data['multas']}}</span></p>
     <p></p>
   </div>
 </div>
@@ -32,15 +33,13 @@
 <div class ="reservas">
   <h1> Minhas reservas</h1>
   {% if resultado %}
-        <form method="post" id="form-records">
-        {% for r in resultado %}
-          <div class="records">
-              <label class="record-label">Exemplar: {{r.id_exemplar}} | Devolução: {{r.data_fim}} 
-              </label>
-          </div>
-
-        {% endfor %}
-        </form>
+      {% for r in resultado %}
+        <div class="records">
+          <!-- -->
+            <label class="record-label"> 
+              {% for k in r %} <span><strong>{{k}}</strong>  : {{r[k]}}</span>{% endfor %}</label>
+        </div>
+      {% endfor %}
     {% endif %}
 </div>
   
