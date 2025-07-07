@@ -3,6 +3,7 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from models.models import User
+import datetime
 
 
 app = Flask(__name__)
@@ -149,8 +150,8 @@ def emprestimo():
 
                   {"$match": {"livro_exemplar.nome": dado}},
 
-                  {"$project": {"Nome": "$livro_exemplar.nome", "Exemplar:": "$_id", 
-                                "Emprestado": "$esta_emprestado", "Reserva:": "$eh_reserva", "_id":0 }}
+                  {"$project": {"Nome": "$livro_exemplar.nome", "Exemplar": "$_id", 
+                                "Emprestado": "$esta_emprestado", "Reserva": "$eh_reserva", "_id":0 }}
                                   ] 
       
       query = list(mongo.db.exemplar.aggregate(pipeline))
@@ -185,7 +186,7 @@ def emprestimo():
 
                 {"$project": {"Nome": "$nome", "Exemplar": "$livro_exemplar._id", 
                                 "Emprestado": "$livro_exemplar.esta_emprestado", 
-                                "Reserva:": "$livro_exemplar.eh_reserva", "_id":0 }}
+                                "Reserva": "$livro_exemplar.eh_reserva", "_id":0 }}
       ] 
 
       query  = list(mongo.db.livro.aggregate(pipeline))
@@ -219,14 +220,28 @@ def emprestimo():
 
                 {"$project": {"Nome": "$nome", "Exemplar": "$livro_exemplar._id", 
                                 "Emprestado": "$livro_exemplar.esta_emprestado", 
-                                "Reserva:": "$livro_exemplar.eh_reserva", "_id":0 }}]
+                                "Reserva": "$livro_exemplar.eh_reserva", "_id":0 }}]
   
       query  = list(mongo.db.livro.aggregate(pipeline))
       return render_template("emprestimo.html", resultado=query) 
 
   else: 
+    exemplares = request.form.getlist('checkbox')
+    data = str(datetime.date.today())
+    id = current_user.get_id()
+
+    for exemplar in exemplares: 
+      reservado = list(mongo.db.emprestimo.find({"exemplar": int(exemplar)}))
+
+      if reservado == []: 
+        #realizar emprestimo
+        pass
+      else: 
+        pass
+        #add em reserva
+
     
-    return render_template("home.html")
+    return redirect(url_for("home"))
 
   
 

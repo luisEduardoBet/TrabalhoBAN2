@@ -30,11 +30,17 @@
       <hr>
         <form action = "{{url_for('emprestimo')}}"method="post" id="form-records">
         {% for r in resultado %}
-            
           <div class="records">
             <label class="record-label"> 
             {% for k in r %} <span><strong>{{k}}</strong>  : {{r[k]}}</span>{% endfor %}</label>
-              <input name="checkbox" type ="checkbox" value={{r[_id]}}>
+
+            {% if r['Reserva'] ==  true %}
+                <input disabled="true"  name="checkbox" type ="checkbox" value={{r.get('Exemplar')}}>
+            {% else %}
+              <input name="checkbox" type ="checkbox" value={{r.get('Exemplar')}}>
+
+            {%endif%}
+
               </label>
           </div>
 
