@@ -227,32 +227,30 @@ def emprestimo():
 
   else: 
     exemplares = request.form.getlist('checkbox')
-    data = str(datetime.date.today())
+    data_inicial= datetime.date.today()
+    data_fim = data_inicial + datetime.timedelta(days=15)
     id = current_user.get_id()
 
     for exemplar in exemplares: 
       reservado = list(mongo.db.emprestimo.find({"exemplar": int(exemplar)}))
 
       if reservado == []: 
-        #realizar emprestimo
-        pass
+        dados = {'exemplar': int(exemplar), 'usuario': id, 
+                 'data_inicio': str(data_inicial), 'data_fim': str(data_fim),
+                 'num_renovacoes':0, 'esta_atrasado': False}
+        
+        mongo.db.emprestimo.insert_one(dados)
+        mongo.db.exemplar.update_one({"_id": int(exemplar)}, { "$set": { "esta_emprestado": True}})
+
+        
       else: 
-        pass
-        #add em reserva
+        dados = {'usuario': id, 'exemplar': int(exemplar), 
+                 'data': str(data_inicial), 'hora': str(datetime.datetime.now().time())}
 
-    
+        mongo.db.reserva.insert_one(dados)
+
+
     return redirect(url_for("home"))
-
-  
-
-  # elif tipo == '2':
-
-  # elif tipo == '3': 
-    
-
-  # else:
-  #   return render_template("home.html")
-
 
 
 
