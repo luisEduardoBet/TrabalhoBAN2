@@ -45,9 +45,6 @@ def home():
     pesquisa =  request.form['pesquisa']
     tipo_pesquisa = request.form['tipo_pesquisa']
 
-
-    print(pesquisa, tipo_pesquisa)
-
    
         
     if tipo_pesquisa == "1":
@@ -91,7 +88,7 @@ def home():
 
                 {"$group": {"_id": "$autor_livro.nome", "livros" : {"$sum": 1 }}}, 
 
-                {"$project": {"Autor": "$_id", "Livros Escritos": "$livros", "_id":0 }}
+                {"$project": {"Nome": "$_id", "Livros Escritos": "$livros", "_id":0 }}
       ] 
 
       if pesquisa != '': 
@@ -116,7 +113,7 @@ def home():
 
                 {"$group": {"_id": "$colecao_livro.nome", "livros" : {"$sum": 1 }}}, 
 
-                {"$project": {"Coleção": "$_id", "Livros da Colecao": "$livros", "_id":0 }}]
+                {"$project": {"Nome": "$_id", "Livros da Colecao": "$livros", "_id":0 }}]
 
 
       if pesquisa != '': 
@@ -124,17 +121,124 @@ def home():
         pipeline.insert(2, match_query)     
 
       query  = list(mongo.db.livro.aggregate(pipeline))
+      
+    return render_template("home.html", resultado = query, tipo = tipo_pesquisa)
 
-    
-    
-  return render_template("home.html", resultado = query)
+  return render_template("home.html")
 
-
-@app.route("/efetivar_emprestimo", methods=["GET", "POST"])
+@app.route("/emprestimo", methods=["GET", "POST"])
 @login_required
 def emprestimo():
 
-  return redirect(url_for("home"))
+
+  if request.method == "GET": 
+    dado = request.args.get('dado')
+    tipo = request.args.get('tipo')
+    
+    if tipo == '1':
+      pipeline = [
+                  { "$lookup":{ 
+                      "from": "livro",
+                      "localField": "livro",
+                      "foreignField" : "_id",
+                      "as": "livro_exemplar"
+                    }
+                  },
+
+                  {"$unwind" : "$livro_exemplar"},
+
+                  {"$match": {"livro_exemplar.nome": dado}},
+
+                  {"$project": {"Nome": "$livro_exemplar.nome", "Exemplar:": "$_id", 
+                                "Emprestado": "$esta_emprestado", "Reserva:": "$eh_reserva", "_id":0 }}
+                                  ] 
+      
+      query = list(mongo.db.exemplar.aggregate(pipeline))
+
+      return render_template("emprestimo.html", resultado=query) 
+    
+    elif tipo == '2':
+      pipeline = [
+
+                { "$lookup":{ 
+                    "from": "autor",
+                    "localField": "autor",
+                    "foreignField" : "_id",
+                    "as": "autor_livro"
+                  }
+                },
+
+                {"$unwind" : "$autor_livro"},
+
+                {"$match": {"autor_livro.nome": dado}},
+
+                { "$lookup":{ 
+                    "from": "exemplar",
+                    "localField": "_id",
+                    "foreignField" : "livro",
+                    "as": "livro_exemplar"
+                  }
+                },
+
+                {"$unwind" : "$livro_exemplar"},
+
+
+                {"$project": {"Nome": "$nome", "Exemplar": "$livro_exemplar._id", 
+                                "Emprestado": "$livro_exemplar.esta_emprestado", 
+                                "Reserva:": "$livro_exemplar.eh_reserva", "_id":0 }}
+      ] 
+
+      query  = list(mongo.db.livro.aggregate(pipeline))
+      return render_template("emprestimo.html", resultado=query) 
+    
+    else:
+      pipeline = [ 
+                  
+                  { "$lookup":{ 
+                    "from": "colecao",
+                    "localField": "colecao",
+                    "foreignField" : "_id",
+                    "as": "colecao_livro"
+                  }
+                },
+
+                {"$unwind" : "$colecao_livro"},
+
+                {"$match": {"colecao_livro.nome": dado}},
+
+                { "$lookup":{ 
+                    "from": "exemplar",
+                    "localField": "_id",
+                    "foreignField" : "livro",
+                    "as": "livro_exemplar"
+                  }
+                },
+
+                {"$unwind" : "$livro_exemplar"},
+
+
+                {"$project": {"Nome": "$nome", "Exemplar": "$livro_exemplar._id", 
+                                "Emprestado": "$livro_exemplar.esta_emprestado", 
+                                "Reserva:": "$livro_exemplar.eh_reserva", "_id":0 }}]
+  
+      query  = list(mongo.db.livro.aggregate(pipeline))
+      return render_template("emprestimo.html", resultado=query) 
+
+  else: 
+    
+    return render_template("home.html")
+
+  
+
+  # elif tipo == '2':
+
+  # elif tipo == '3': 
+    
+
+  # else:
+  #   return render_template("home.html")
+
+
 
 
 

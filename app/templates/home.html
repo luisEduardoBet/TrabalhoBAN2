@@ -52,7 +52,7 @@
               <label class="record-label"> 
                 {% for k in r %} <span><strong>{{k}}</strong>  : {{r[k]}}</span>{% endfor %}</label>
 
-              <button class= "seemore" name="botao" type ="submit" value="{{r['_id']}}">Ver Mais</button>
+                <li class = "seemore"><a href="{{ url_for('emprestimo', dado = r['Nome'], tipo=tipo)}}">Ver mais</a></li>
 
           </div>
 

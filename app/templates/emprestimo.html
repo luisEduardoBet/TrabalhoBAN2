@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{%block title %} Login {%endblock%}
+{%block head%} 
+  {{super()}}
+  <link rel="stylesheet" href= "static/home.css" />
+  <link rel="stylesheet" href= "static/emprestimo.css" />
+{%endblock%}
+
+
+{% block content%}
+
+  <div class= "navbar">
+
+    <a class= "button-home" href="{{url_for('home')}}">Home</a>
+    <a class= "button-perfil" href="{{ url_for('profile') }}">Perfil</a>
+    <a class= "button-logout" href="{{url_for('logout')}}">LogOut</a> 
+
+  </div>
+
+  <div class = "acervo">
+
+    <h1>Bem vindo, {{current_user.user_data['nome']}}</h1>
+    
+
+    <div class="livros"> 
+
+   
+    {% if resultado %}
+      <h1> Resultados Encontrados</h1>
+      <hr>
+        <form action = "{{url_for('emprestimo')}}"method="post" id="form-records">
+        {% for r in resultado %}
+            
+          <div class="records">
+            <label class="record-label"> 
+            {% for k in r %} <span><strong>{{k}}</strong>  : {{r[k]}}</span>{% endfor %}</label>
+              <input name="checkbox" type ="checkbox" value={{r[_id]}}>
+              </label>
+          </div>
+
+        {% endfor %}
+
+        <input type="submit" id = "submit-button2" value = "Reservar"> 
+        </form>
+    {% endif %}
+      
+      
+
+    </div>
+
+  </div>
+
+{% endblock %}
